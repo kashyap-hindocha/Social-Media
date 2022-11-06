@@ -1,19 +1,17 @@
 import React from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { RiHomeFill } from 'react-icons/ri';
-import { IoIosArrowForward } from 'react-icons/io';
 
 import logo from '../assets/logo.png';
 import { categories } from '../utils/data';
 
-const isNotActiveStyle = 'flex items-center px-5 gap-3 text-gray-500 hover:text-black transition-all duration-200 ease-in-out capitalize';
-const isActiveStyle = 'flex items-center px-5 gap-3 font-extrabold border-r-2 border-black transition-all duration-200 ease-in-out capitalize';
+const isNotActiveStyle = 'flex flex-row items-center px-5 py-1 gap-3 text-gray-500 hover:text-black ease-in capitalize';
+const isActiveStyle = 'flex flex-row items-center px-5 py-3 gap-3 font-extrabold border-r-2 border-black ease-out capitalize';
 
 const Sidebar = ({user, closeToggle}) => {
   const handleCloseSidebar = () => {
     if(closeToggle) closeToggle(false);
   }
-
   return (
     <div className='flex flex-col justify-between bg-white h-full overflow-y-scroll min-w-210 hide-scrollbar'>
       <div className="flex flex-col">
@@ -27,6 +25,7 @@ const Sidebar = ({user, closeToggle}) => {
         <div className="flex flex-col gap-5">
           <NavLink 
             to="/"
+            end
             className={({ isActive }) => isActive ? isActiveStyle : isNotActiveStyle}
             onClick={handleCloseSidebar}            
           >
@@ -34,21 +33,23 @@ const Sidebar = ({user, closeToggle}) => {
             Home
           </NavLink>
           <h3 className="mt-2 px-5 text-base 2xl:text-xl">Discover categories</h3>
-              {categories.slice(0, categories.length-1).map((category) => (
-                <NavLink 
-                  to={`/category/${category.name}`}
-                  className={({ isActive }) => isActive ? isActiveStyle : isNotActiveStyle}
-                  onClick={handleCloseSidebar}
-                  key={category.name}
-                >
-                  <img 
-                    src={category.image} 
-                    alt="cat-img" 
-                    className='w-8 h-8 rounded-full shadow-sm'
-                    />
-                    {category.name} 
-                </NavLink>
-              ))}
+          <div className='flex flex-col justify-between h-2/5'>
+            {categories.slice(0, categories.length-1).map((category) => (
+              <NavLink 
+                to={`/category/${category.name}`}
+                className={({ isActive }) => isActive ? isActiveStyle : isNotActiveStyle}
+                onClick={handleCloseSidebar}
+                key={category.name}
+              >
+                <img 
+                  src={category.image} 
+                  alt="cat-img" 
+                  className='w-8 h-8 rounded-full shadow-sm'
+                  />
+                  {category.name} 
+              </NavLink>
+            ))}
+          </div>
         </div>
       </div>
       { user && (

@@ -30,7 +30,8 @@ const CreatePin = ({ user }) => {
   }
 
   const savePin = () => {
-    if(title && about && destination && imageAsset?._id && category) {
+    setSaving(true);
+      if (title && about && destination && imageAsset?._id && category) {
       const doc = {
         _type: 'pin',
         title, 
@@ -50,7 +51,6 @@ const CreatePin = ({ user }) => {
         },
         category,
       }
-
       client.create(doc)
         .then(() => {
           navigate("/");
@@ -59,7 +59,10 @@ const CreatePin = ({ user }) => {
     } else {
       setFields(true);
 
-      setTimeout(() => setFields(false), 2000);
+      setTimeout(() => {
+        setFields(false);
+        setSaving(false);
+      }, 2000);
     }
   }
 
@@ -71,6 +74,7 @@ const CreatePin = ({ user }) => {
   const [category, setCategory] = useState(null); 
   const [imageAsset, setImageAsset] = useState(null);
   const [wrongImageType, setwrongImageType] = useState(false);
+  const [saving, setSaving] = useState(false);
 
   const navigate = useNavigate();
 
@@ -178,13 +182,25 @@ const CreatePin = ({ user }) => {
                   </select>
               </div>
               <div className="flex justify-end items-end mt-5">
-                <button 
+                { saving ? (
+                  <button 
+                  type="button" 
+                  disabled
+                  className="bg-gray-500 text-white font-bold p-2 rounded-full w-28 outline-none"
+                  >
+                    Saving
+                  </button>
+                )
+                 : (
+                  <button 
                   type="button" 
                   onClick={savePin}
                   className="bg-red-500 text-white font-bold p-2 rounded-full w-28 outline-none"
                   >
                     Save Pin
                   </button>
+                 ) }
+            
               </div>
             </div>
         </div>

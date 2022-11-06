@@ -47,6 +47,7 @@ const Pin = ({pin: { postedBy, image, _id, destination, save }}) => {
         window.location.reload();
       })
   }
+  console.log(save);
 
   const navigate = useNavigate();
   return (

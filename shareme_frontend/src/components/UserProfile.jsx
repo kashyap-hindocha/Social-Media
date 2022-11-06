@@ -17,7 +17,7 @@ const UserProfile = () => {
   const [user, setUser] = useState(null);
   const [pins, setPins] = useState(null);
   const [text, setText] = useState('Created');
-  const [activeBtn, setActiveBtn] = useState('created');
+  const [activeBtn, setActiveBtn] = useState('Created');
 
   const navigate = useNavigate();
   const { userId } = useParams();
@@ -48,7 +48,7 @@ const UserProfile = () => {
   }, [text, userId]);
 
   useEffect(() => {
-    if(text === 'Created') {
+    if(text === 'Saved') {
       const savedPinsQuery = userSavedPinsQuery(userId);
       client.fetch(savedPinsQuery)
         .then((data) => {
@@ -94,10 +94,10 @@ const UserProfile = () => {
               type="button"
               onClick={(e) => {
                 setText(e.target.textContent);
-                setActiveBtn('created');
+                setActiveBtn('Created');
 
               }}
-              className={`${activeBtn === 'created' ? activeBtnStyles : notActiveBtnStyles}`}>
+              className={`${activeBtn === 'Created' ? activeBtnStyles : notActiveBtnStyles}`}>
                 Created
               </button>
 
@@ -105,10 +105,10 @@ const UserProfile = () => {
               type="button"
               onClick={(e) => {
                 setText(e.target.textContent);
-                setActiveBtn('saved');
+                setActiveBtn('Saved');
 
               }}
-              className={`${activeBtn === 'saved' ? activeBtnStyles : notActiveBtnStyles}`}>
+              className={`${activeBtn === 'Saved' ? activeBtnStyles : notActiveBtnStyles}`}>
                 Saved
               </button>
           </div>
